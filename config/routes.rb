@@ -30,6 +30,8 @@ Rails.application.routes.draw do
       resources :manage_user_zone_dropdown
       resources :manage_user_region_dropdown
       resources :manage_user_ufc_location_dropdown
+      resources :search_manage_user_table
+      post 'employees', to: 'sp_manage_user_employee_details_save#create'
     end
   end
 end
