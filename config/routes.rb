@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       resources :manage_user_ufc_location_dropdown
       resources :search_manage_user_table
       post 'employees', to: 'sp_manage_user_employee_details_save#create'
+      resources :manage_user_get_edit_data
     end
   end
 end

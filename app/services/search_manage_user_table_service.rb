@@ -1,8 +1,9 @@
 class SearchManageUserTableService
-    def self.get_dropdown_details(emp_id,channel_code,emp_role,status,location)
+    def self.get_dropdown_details(emp_id,emp_name,channel_code,emp_role,status,location)
       conn = OCI8.new('MISVPAY', 'MISVPAY@123', '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=103.12.1.155)(PORT=1521))(CONNECT_DATA=(SID=xe)))')
-      cursor = conn.parse('BEGIN MISVPAY_MANAGER_USER_FOR_GET_DATA(:empid_in, :channelcode_in,:emprole_in,:status_in,:location_in,:get_all_data); END;')
+      cursor = conn.parse('BEGIN MISVPAY_MANAGER_USER_FOR_GET_DATA(:empid_in,:emp_name_in, :channelcode_in,:emprole_in,:status_in,:location_in,:get_all_data); END;')
       cursor.bind_param(':empid_in', emp_id, String)
+      cursor.bind_param(':emp_name_in', emp_name, String)
       cursor.bind_param(':channelcode_in', channel_code, String)
       cursor.bind_param(':emprole_in', emp_role, String)
       cursor.bind_param(':status_in', status, String)
