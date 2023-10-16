@@ -8,10 +8,19 @@ Rails.application.routes.draw do
       # resources :region_summary_transactions
       # resources :ufc_summary_transactions
       # resources :rm_summary_transactions
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
       resources :aum
       resources :aum_regions
       resources :aum_ufc
       resources :aum_dropdown
+<<<<<<< Updated upstream
+=======
+      resources :nfo
+>>>>>>> Stashed changes
       # resources :all_region_retail
       # resources :all_ufc_retail
       # resources :all_rm_retail
