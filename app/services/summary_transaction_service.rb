@@ -1,11 +1,11 @@
 require 'oci8'
 class SummaryTransactionService
-  def self.get_transaction_summary_report(employee_id,emprole, quarter,start_date, end_date,  select_type,  scheme_code, channel, zone, region, ufc, rm, common_report)
+  def self.get_transaction_summary_report(employee_id,emprole, quarter,start_date, end_date,  select_type,  scheme_code, channel, zone, region, ufc, rm, common_report,page_number,page_size)
     conn = OCI8.new('MISVPAY', 'MISVPAY@123', '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=103.12.1.155)(PORT=1521))(CONNECT_DATA=(SID=xe)))')
     select_column = (select_type == 'grosssales') ? 'grosssales' : 'netsales'
-    procedure_name = 'newmisvpay_transaction_summary_report_all'
+    procedure_name = 'NEWMISVPAY_TEST_220923_REV_TES'
     
-    cursor = conn.parse("BEGIN #{procedure_name}(:p_emplid,:p_emprole,:p_quarter,:p_start_date, :p_end_date,  :p_report_type, :p_scheme_code, :p_chn_code, :p_zone, :p_region_code, :p_ufc_code, :p_rmcode, :p_common_report, :get_all_data); END;")
+    cursor = conn.parse("BEGIN #{procedure_name}(:p_emplid,:p_emprole,:p_quarter,:p_start_date, :p_end_date,  :p_report_type, :p_scheme_code, :p_chn_code, :p_zone, :p_region_code, :p_ufc_code, :p_rmcode, :p_common_report,:P_PAGE_NUMBER,:P_PAGE_SIZE, :get_all_data); END;")
     cursor.bind_param(':p_emplid', employee_id, String)
     cursor.bind_param(':p_emprole', emprole, String)
     cursor.bind_param(':p_quarter', quarter, String)
@@ -19,6 +19,8 @@ class SummaryTransactionService
     cursor.bind_param(':p_ufc_code', ufc, String)
     cursor.bind_param(':p_rmcode', rm, String)
     cursor.bind_param(':p_common_report', common_report, String)
+    cursor.bind_param(':P_PAGE_NUMBER',page_number, String)
+    cursor.bind_param(':P_PAGE_SIZE', page_size, String)
     cursor.bind_param(':get_all_data', nil, OCI8::Cursor)
     cursor.exec
     
@@ -35,7 +37,7 @@ class SummaryTransactionService
     end
 
     out_cursor.close
-    cursor.close
+     cursor.close
     conn.logoff
 
     summary_report
