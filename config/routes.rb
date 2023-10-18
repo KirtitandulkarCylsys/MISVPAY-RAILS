@@ -4,7 +4,9 @@ Rails.application.routes.draw do
       resources :login_details
       resources :rolewiselogin
       resources :summary_transactions
-      # resources :scheme_details 
+      resources :mandate_report
+      resources :scheme_details
+      resources :asset_class
       # resources :region_summary_transactions
       # resources :ufc_summary_transactions
       # resources :rm_summary_transactions
