@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       # resources :all_ufc_retail
       # resources :all_rm_retail
       # resources :assetclass
+      resources :account_dropdown
+      resources :account_summary
     end
   end
 end

@@ -31,7 +31,7 @@ class AccountSummaryService
       channel_code,
       common_report)
       conn = OCI8.new('MISVPAY', 'MISVPAY@123', '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=103.12.1.155)(PORT=1521))(CONNECT_DATA=(SID=xe)))')
-      procedure_name = 'amount_report_sales'
+      procedure_name = 'MISVPAY_AMOUNT_SUMMARY_REPORT'
       cursor = conn.parse("BEGIN #{procedure_name}(
         :P_EMPLID,  
         :P_EMPROLE,  
