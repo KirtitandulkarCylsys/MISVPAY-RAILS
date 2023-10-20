@@ -1,7 +1,12 @@
 require 'oci8'
 class MandateReportService
   def self.get_mandate_report(empid, emp_role, year_quater, start_date, end_date, stype, status, scheme_code, chn_code, zone, region_code, ufc_code, rmcode, common_report)
-    conn = OCI8.new('MISVPAY', 'MISVPAY@123', '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=103.12.1.155)(PORT=1521))(CONNECT_DATA=(SID=xe)))')
+    db_config = YAML.load_file('config/database.yml')['development']
+    conn = OCI8.new(
+      db_config['username'],
+      db_config['password'],
+      db_config['database']
+    )    
     # select_column = (stype == 'SIP') ? 'SIP' : 'STP'
     # procedure_name = 'NEWMISVPAY_MANDATE_REPORT_FOR_ALL' 
     
