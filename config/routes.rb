@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       resources :aum_ufc
       resources :aum_dropdown
       resources :nfo
-      resources :nfo_upload
+      post 'nfo_upload', to: 'nfo_upload#create'
       resources :nfo_delete, only: [:destroy]  # Define the DELETE route
       # resources :all_region_retail
       # resources :all_ufc_retail

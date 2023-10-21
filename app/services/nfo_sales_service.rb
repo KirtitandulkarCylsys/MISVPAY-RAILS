@@ -15,8 +15,6 @@ class NfoSalesService
     cursor.bind_param(':P_REGION_CODE', region, String)
     cursor.bind_param(':P_UFC_CODE', ufc, String)
     cursor.bind_param(':P_RMCODE', rm, String)
-    cursor.bind_param(':P_COMMON_REPORT', common_report, String)
-
     cursor.bind_param(':get_all_data', nil, OCI8::Cursor)    
     cursor.exec
     nfo_report = []
