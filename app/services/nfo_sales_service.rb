@@ -1,16 +1,20 @@
 class NfoSalesService
-  def self.get_nfo_sales_details(emp_id, emprole,zone,region,ufc,rm, common_report)
-    conn = OCI8.new('MISVPAY', 'MISVPAY@123', '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=103.12.1.155)(PORT=1521))(CONNECT_DATA=(SID=xe)))')
+  def self.get_nfo_sales_details(emp_id, emprole,zone,region,ufc,rm)
+    db_config = YAML.load_file('config/database.yml')['development'] 
+    conn = OCI8.new(
+      db_config['username'],
+      db_config['password'],
+      db_config['database'] 
+    )
     procedure_name = 'MISVPAY_NFO_SALES_DETAILS_SP'
-    cursor = conn.parse("BEGIN #{procedure_name}(:P_EMPLID,:P_EMPROLE,:P_ZONE,:P_REGION_CODE,:P_UFC_CODE, :P_RMCODE,:P_COMMON_REPORT, :get_all_data); END;")
+    cursor = conn.parse("BEGIN #{procedure_name}(:P_EMPLID, :P_EMPROLE, :P_ZONE, :P_REGION_CODE, :P_UFC_CODE, :P_RMCODE, :get_all_data); END;")
+
     cursor.bind_param(':P_EMPLID', emp_id, String)
     cursor.bind_param(':P_EMPROLE', emprole, String)
     cursor.bind_param(':P_ZONE', zone, String)
     cursor.bind_param(':P_REGION_CODE', region, String)
     cursor.bind_param(':P_UFC_CODE', ufc, String)
     cursor.bind_param(':P_RMCODE', rm, String)
-    cursor.bind_param(':P_COMMON_REPORT', common_report, String)
-
     cursor.bind_param(':get_all_data', nil, OCI8::Cursor)    
     cursor.exec
     nfo_report = []
@@ -25,7 +29,7 @@ class NfoSalesService
     end
     out_cursor.close
     cursor.close
-  	conn.logoff
+    conn.logoff
     nfo_report
   end
 end

@@ -1,7 +1,12 @@
 require 'oci8'
 class SummaryTransactionService
-  def self.get_transaction_summary_report(employee_id,emprole, quarter,start_date, end_date,  select_type,  scheme_code, channel, zone, region, ufc, rm, common_report)
-    conn = OCI8.new('MISVPAY', 'MISVPAY@123', '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=103.12.1.155)(PORT=1521))(CONNECT_DATA=(SID=xe)))')
+  def self.get_transaction_summary_report(employee_id,emprole, quarter,start_date, end_date,  select_type,  scheme_code, channel, zone, region, ufc, rm, common_report,page_number,page_size)
+    db_config = YAML.load_file('config/database.yml')['development'] 
+    conn = OCI8.new(
+      db_config['username'],
+      db_config['password'],
+      db_config['database'] 
+    )    
     select_column = (select_type == 'grosssales') ? 'grosssales' : 'netsales'
     procedure_name = 'newmisvpay_transaction_summary_report_all'
     

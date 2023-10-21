@@ -2,25 +2,15 @@ class Api::V1::AumController < ApplicationController
   def index
 
     empid = params[:empid]
-
     emprole = params[:emprole]
-
     quarter = params[:quarter]
-
     period_code = params[:period_code]
-
     zone = params[:zone]
-
     region_code = params[:region_code]
-
     ufc_code = params[:ufc_code]
-
     rm_code = params[:rm_code]
-
     chn_code = params[:chn_code]
-
     common_report = params[:common_report]
-
     page_number = params[:page_number]
     page_size = params[:page_size]
 
