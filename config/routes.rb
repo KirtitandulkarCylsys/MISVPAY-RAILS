@@ -4,14 +4,22 @@ Rails.application.routes.draw do
       resources :login_details
       resources :rolewiselogin
       resources :summary_transactions
-      # resources :scheme_details 
+      resources :mandate_report
+      resources :scheme_details
+      resources :asset_class
       # resources :region_summary_transactions
       # resources :ufc_summary_transactions
       # resources :rm_summary_transactions
+
+
       resources :aum
+      resources :etf_sale
       resources :aum_regions
       resources :aum_ufc
       resources :aum_dropdown
+      resources :nfo
+      post 'nfo_upload', to: 'nfo_upload#create'
+      resources :nfo_delete, only: [:destroy]  # Define the DELETE route
       # resources :all_region_retail
       # resources :all_ufc_retail
       # resources :all_rm_retail

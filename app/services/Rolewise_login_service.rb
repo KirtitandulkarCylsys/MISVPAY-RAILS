@@ -1,11 +1,11 @@
 class RolewiseLoginService
 	def self.get_user_details(emp_id, current_date,quarter_no)
-    db_config = YAML.load_file('config/database.yml')['development']
-        conn = OCI8.new(
-          db_config['username'],
-          db_config['password'],
-          db_config['database']
-        ) 
+    db_config = YAML.load_file('config/database.yml')['development'] 
+    conn = OCI8.new(
+      db_config['username'],
+      db_config['password'],
+      db_config['database'] 
+    )   
     cursor = conn.parse('BEGIN MISVPAY_USER_LOGIN_DETAILS(:P_EMPLID, :P_CURRENT_DATE,:p_quarter_no, :get_all_data); END;')
     cursor.bind_param(':P_EMPLID', emp_id, String)  
     cursor.bind_param(':P_CURRENT_DATE', current_date, String)
