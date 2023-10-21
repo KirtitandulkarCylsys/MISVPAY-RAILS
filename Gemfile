@@ -21,7 +21,7 @@ gem  "activerecord-oracle_enhanced-adapter"
 
 gem "bootsnap", require: false
 
-
+gem "psych","3.3.0"
 
 group :development, :test do
 
