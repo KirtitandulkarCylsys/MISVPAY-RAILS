@@ -24,6 +24,8 @@ Rails.application.routes.draw do
       # resources :all_ufc_retail
       # resources :all_rm_retail
       # resources :assetclass
+      resources :account_dropdown
+      resources :account_summary
       resources :manage_user_channel_code_dropdown
       resources :manage_user_reporting_role_dropdown
       resources :manage_user_power_user_dropdown
