@@ -1,7 +1,12 @@
 class ManageUserPostUpdateDataService
     def self.update_employee_data(emp_id,channel_code, emp_role,  location, start_date, status, reporting_role, power_user_code, zone, region_code,
         kam_flag, nam_group, func_role, city,end_date, dv_flag,remark, valid_from,valid_upto, access_from, access_upto, emp_name, emp_pass, emailid)
-      conn = OCI8.new('MISVPAY', 'MISVPAY@123', '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=103.12.1.155)(PORT=1521))(CONNECT_DATA=(SID=xe)))')
+        db_config = YAML.load_file('config/database.yml')['development']
+        conn = OCI8.new(
+          db_config['username'],
+          db_config['password'],
+          db_config['database']
+        ) 
       cursor = conn.parse('BEGIN misvpay_manager_user_update_data(:p_emp_id, :p_channel_code,:p_emp_role, :p_location, :p_start_date,:p_status, :p_reporting_role, :p_power_user_code,
        :p_zone, :p_region_code, :p_kam_flag, :p_nam_group, :p_fun_role,:p_city, :p_end_date, :p_dv_flag, :p_remark, :p_valid_from, :p_valid_upto, :p_access_from, :p_access_upto, :p_emp_name, :p_emp_pass, :p_email); END;')
   

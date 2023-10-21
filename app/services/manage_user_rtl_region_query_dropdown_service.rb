@@ -1,6 +1,11 @@
 class  ManageUserRtlRegionQueryDropdownService
   def self.get_dropdown_details(channel_code)
-    conn = OCI8.new('MISVPAY', 'MISVPAY@123', '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=103.12.1.155)(PORT=1521))(CONNECT_DATA=(SID=xe)))')
+    db_config = YAML.load_file('config/database.yml')['development']
+        conn = OCI8.new(
+          db_config['username'],
+          db_config['password'],
+          db_config['database']
+        ) 
     cursor = conn.parse('BEGIN GET_RTL_REGION_QUERY_DROPDOWN( :p_channel_code,:get_all_data); END;')
     cursor.bind_param(':p_channel_code', channel_code, String)
     cursor.bind_param(':get_all_data', nil, OCI8::Cursor)

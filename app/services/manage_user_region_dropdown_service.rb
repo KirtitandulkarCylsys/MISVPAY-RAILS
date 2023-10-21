@@ -1,6 +1,11 @@
 class  ManageUserRegionDropdownService
     def self.get_dropdown_details(channel_code,valid_upto)
-      conn = OCI8.new('MISVPAY', 'MISVPAY@123', '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=103.12.1.155)(PORT=1521))(CONNECT_DATA=(SID=xe)))')
+      db_config = YAML.load_file('config/database.yml')['development']
+      conn = OCI8.new(
+        db_config['username'],
+        db_config['password'],
+        db_config['database']
+      )  
       cursor = conn.parse('BEGIN GET_MANAGE_USER_REGION_DROPDOWN( :p_channel_code,:p_valid_upto,:get_all_data); END;')
       cursor.bind_param(':p_channel_code', channel_code, String)
       cursor.bind_param(':p_valid_upto', valid_upto, String)

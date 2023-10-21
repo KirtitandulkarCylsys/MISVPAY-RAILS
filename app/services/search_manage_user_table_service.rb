@@ -1,6 +1,11 @@
 class SearchManageUserTableService
     def self.get_dropdown_details(emp_id,emp_name,channel_code,emp_role,status,location)
-      conn = OCI8.new('MISVPAY', 'MISVPAY@123', '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=103.12.1.155)(PORT=1521))(CONNECT_DATA=(SID=xe)))')
+      db_config = YAML.load_file('config/database.yml')['development']
+        conn = OCI8.new(
+          db_config['username'],
+          db_config['password'],
+          db_config['database']
+        ) 
       cursor = conn.parse('BEGIN MISVPAY_MANAGER_USER_FOR_GET_DATA(:empid_in,:emp_name_in, :channelcode_in,:emprole_in,:status_in,:location_in,:get_all_data); END;')
       cursor.bind_param(':empid_in', emp_id, String)
       cursor.bind_param(':emp_name_in', emp_name, String)

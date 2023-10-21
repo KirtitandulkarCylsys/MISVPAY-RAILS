@@ -1,6 +1,11 @@
 class ManageUserQuarterDropdownService
   def self.get_dropdown_details
-    conn = OCI8.new('MISVPAY', 'MISVPAY@123', '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=103.12.1.155)(PORT=1521))(CONNECT_DATA=(SID=xe)))')
+    db_config = YAML.load_file('config/database.yml')['development']
+        conn = OCI8.new(
+          db_config['username'],
+          db_config['password'],
+          db_config['database']
+        ) 
     cursor = conn.parse('BEGIN GET_MANAGE_SELECT_QUARTER_DROPDOWN(:get_all_data); END;')
     cursor.bind_param(':get_all_data', nil, OCI8::Cursor)
     cursor.exec

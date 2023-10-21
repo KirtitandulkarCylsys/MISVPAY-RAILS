@@ -3,7 +3,12 @@ class SpManageUserEmployeeDetailsSaveService
      func_role, last_updated_date, last_updated_user, kam_flag,nam_group, region_code,zone, reporting_role, power_user_code, city, emp_name, emp_pass, emailid,
       dv_flag, misvpay_code, sales_flag, fscheme, mail, farn, summit_cat, access_from,
        access_upto, sap_ufc_code, sap_region_code, sap_zone_code, schema, active)
-    conn = OCI8.new('MISVPAY', 'MISVPAY@123', '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=103.12.1.155)(PORT=1521))(CONNECT_DATA=(SID=xe)))')
+       db_config = YAML.load_file('config/database.yml')['development']
+       conn = OCI8.new(
+         db_config['username'],
+         db_config['password'],
+         db_config['database']
+       ) 
     cursor = conn.parse('BEGIN SP_MANAGE_USER_EMPLOYEE_DETAILS_SAVE(:p_emp_id, :p_channel_code,:p_emp_role, :p_location, :p_start_date, :p_end_date, :p_status, :p_remark, :p_valid_from, :p_valid_upto, :p_func_role, :p_last_updated_date, :p_last_updated_user, :p_kam_flag,:p_nam_group, :p_region_code, :p_zone, :p_reporting_role, :p_power_user_code, :p_city, :p_emp_name, :p_emp_pass, :p_email, :p_dv_flag, :p_misvpay_code, :p_sales_flag, :p_fscheme, :p_mail, :p_farn, :p_summit_cat, :p_access_from, :p_access_upto, :p_sap_ufc_code, :p_sap_region_code, :p_sap_zone_code, :p_schema, :p_active); END;')
 
     cursor.bind_param(':p_emp_id', emp_id, String)
