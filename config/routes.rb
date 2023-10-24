@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resources :aum_ufc
       resources :aum_dropdown
       resources :nfo
+      resources :folio_report
       # resources :all_region_retail
       # resources :all_ufc_retail
       # resources :all_rm_retail
