@@ -1,6 +1,6 @@
 require 'oci8'
 class ArnService
-  def self.get_arn_report(employee_id,emprole,start_date, end_date,quarter,quarter_last_date, multicity,zone, region, ufc, rm, select_type, channel)
+  def self.get_arn_report(employee_id,emprole,start_date, end_date,quarter,quarter_last_date, multicity,zone, region, ufc, rm, select_type, channel,scheme)
   	db_config = YAML.load_file('config/database.yml')['development']
     conn = OCI8.new(
       db_config['username'],
@@ -10,7 +10,7 @@ class ArnService
     select_column = (select_type == 'grosssales') ? 'grosssales' : 'netsales'
     procedure_name = 'MISVPAY_RTL_TRANSACTION_SUMMARY_ARN_REPORT_SP'
     
-    cursor = conn.parse("BEGIN #{procedure_name}(:P_EMPLID,:P_EMPROLE,:P_STARTDATE,:P_ENDDATE, :p_quarter,  :p_quarter_last_date, :p_multicity, :P_ZONE, :P_REGION_CODE, :P_UFC_CODE, :P_RMCODE, :p_report_type, :P_CHN_CODE,:get_all_data); END;")
+    cursor = conn.parse("BEGIN #{procedure_name}(:P_EMPLID,:P_EMPROLE,:P_STARTDATE,:P_ENDDATE, :p_quarter,:p_quarter_last_date,:p_multicity, :P_ZONE,:P_REGION_CODE,:P_UFC_CODE,:P_RMCODE,:p_report_type,:P_CHN_CODE,:P_SCHEME_CODE,:get_all_data); END;")
 		
     cursor.bind_param(':P_EMPLID', employee_id, String)
     cursor.bind_param(':P_EMPROLE', emprole, String)
@@ -25,6 +25,7 @@ class ArnService
     cursor.bind_param(':P_RMCODE', rm, String)
     cursor.bind_param(':p_report_type', select_type, String)
     cursor.bind_param(':P_CHN_CODE', channel, String)
+    cursor.bind_param(':P_SCHEME_CODE', scheme, String)   
     cursor.bind_param(':get_all_data', nil, OCI8::Cursor)
     cursor.exec
     

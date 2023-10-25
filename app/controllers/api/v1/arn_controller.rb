@@ -13,8 +13,8 @@ class Api::V1::ArnController < ApplicationController
     rm = params[:rm]
     select_type = params[:select_type]
     channel = params[:channel]  
-
-    arn_report = SummaryTransactionService.get_arn_report(employee_id,emprole,start_date, end_date,quarter,quarter_last_date, multicity,zone, region, ufc, rm, select_type, channel)
+    scheme = params[:scheme]  
+    arn_report = ArnService.get_arn_report(employee_id,emprole,start_date, end_date,quarter,quarter_last_date, multicity,zone, region, ufc, rm, select_type, channel,scheme)
 
     render json: arn_report
   end
