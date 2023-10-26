@@ -13,9 +13,11 @@ class Api::V1::SummaryTransactionsController < ApplicationController
     ufc = params[:ufc]
     rm = params[:rm]
     common_report = params[:common_report]
+    page_number = params[:page_number]
+    page_size = params[:page_size]
     transaction_summary_report = SummaryTransactionService.get_transaction_summary_report(employee_id,
     emprole, quarter,start_date, end_date,  select_type,  scheme_code, channel,
-    zone, region, ufc, rm, common_report)
+    zone, region, ufc, rm, common_report,page_number,page_size)
     render json: transaction_summary_report
   end
 end
