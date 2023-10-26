@@ -24,9 +24,10 @@ class Api::V1::ManageUserPostUpdateDataController < ApplicationController
     emp_name = params[:emp_name]
     emp_pass = params[:emp_pass]
     emailid = params[:emailid]
-
+    last_updated_date =params[:last_updated_date]
+    last_updated_user = params[:last_updated_user]
     dropdown_data = ManageUserPostUpdateDataService.update_employee_data(emp_id, channel_code, emp_role, location, start_date, status, reporting_role, power_user_code, zone, region_code,
-      kam_flag, nam_group, func_role, city, end_date, dv_flag, remark, valid_from, valid_upto, access_from, access_upto, emp_name, emp_pass, emailid)
+      kam_flag, nam_group, func_role, city, end_date, dv_flag, remark, valid_from, valid_upto, access_from, access_upto, emp_name, emp_pass, emailid,last_updated_date,last_updated_user)
 
     if dropdown_data
       render json: { message: 'Employee data saved successfully', dropdown_data: dropdown_data }, status: :created

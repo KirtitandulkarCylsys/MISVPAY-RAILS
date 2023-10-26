@@ -43,7 +43,8 @@ Rails.application.routes.draw do
       post 'employees', to: 'sp_manage_user_employee_details_save#create'
       put 'employees_update', to: 'manage_user_post_update_data#update'
       resources :manage_user_get_edit_data
-     
+      resources :rm_name_dropdown
+      resources :region_ufc_scheme_report_search
     end
   end
 end
