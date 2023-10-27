@@ -86,6 +86,7 @@ class Api::V1::SpManageUserEmployeeDetailsSaveController < ApplicationController
     func_role, last_updated_date, last_updated_user, kam_flag,nam_group, region_code,zone, reporting_role, power_user_code, city, emp_name, emp_pass, emailid,
      dv_flag, misvpay_code, sales_flag, fscheme, mail, farn, summit_cat, access_from,
       access_upto, sap_ufc_code, sap_region_code, sap_zone_code, schema, active)
+
     if dropdown_data.empty?
       render json: { message: 'Employee data not found' }, status: :not_found
     else
